@@ -41,3 +41,8 @@ Then save `JWT issuer` and `JWT secret` in `API_KEY`, `API_SECRET` respectively 
   ```
 3. github workflow creates a draft of release corresponding to the tag
 4. approve it
+
+## how to update add-on
+
+1. develop add-on
+2. update `update_manifest.json` to contain information of the next release
