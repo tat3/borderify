@@ -2,16 +2,6 @@
 
 https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension
 
-## how to create release binary
-
-Assume the tag for release is `v0.1.0`, run
-
-```bash
-$ bash release.sh v0.1.0
-```
-
-Then publish `borderify_v0.1.0.zip`.
-
 ## how to release
 
 for developer
@@ -45,4 +35,9 @@ Then save `JWT issuer` and `JWT secret` in `API_KEY`, `API_SECRET` respectively 
 ## how to update add-on
 
 1. develop add-on
-2. update `update_manifest.json` to contain information of the next release
+2. commit add-on and merge into main branch
+3. attach a tag to latest commit in main
+4. workflow automatically creates:
+   * package of add-on
+   * pull request to release package
+5. check result of workflow and approve the pull request
