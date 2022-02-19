@@ -19,6 +19,7 @@ jobs:
         run: |
           ref=${{ github.ref }}
           echo "tag=${ref##ref/tags/}" >> $GITHUB_ENV
+          echo ${{ env.tag }}
 
       - name: Create release assets
         run: bash release.sh ${{ env.tag }}
@@ -26,7 +27,6 @@ jobs:
       - name: Create release draft
         uses: softprops/action-gh-release@v1
         with:
-          draft: true
           files: |
             borderify_${{ env.tag }}.zip
 
