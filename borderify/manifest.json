@@ -14,6 +14,10 @@
       "matches": ["*://*.mozilla.org/*"],
       "js": ["borderify.js"]
     }
-  ]
-
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "update_url": "https://raw.githubusercontent.com/tat3/borderify/main/update_manifest.json"
+    }
+  }
 }

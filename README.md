@@ -5,5 +5,7 @@ https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Your_first_W
 ## how to release
 
 ```bash
-$ zip -r borderify.zip ./* -x '*.zip' -x '*.git*'
+$ bash release.sh
 ```
+
+Then release `./borderify.zip`
