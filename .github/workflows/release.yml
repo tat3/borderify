@@ -40,17 +40,17 @@ jobs:
           envsubst < manifest.json.template > borderify/manifest.json
           cat borderify/manifest.json
 
-      - name: Sign addon and create addon xpi
-        run: |
-          cd borderify
-          web-ext sign --api-key=${{ secrets.API_KEY }} --api-secret=${{ secrets.API_SECRET }}  --id=`cat ../addon_id`
-
-      - name: Create release draft
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          files: |
-            borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
+#       - name: Sign addon and create addon xpi
+#         run: |
+#           cd borderify
+#           web-ext sign --api-key=${{ secrets.API_KEY }} --api-secret=${{ secrets.API_SECRET }}  --id=`cat ../addon_id`
+# 
+#       - name: Create release draft
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           draft: true
+#           files: |
+#             borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
 
       - name: Update update manifest
         run: node release.js ${{ env.tag }}
@@ -63,4 +63,4 @@ jobs:
           git commit -m "workflow: update update manifest"
 
       - name: Register update manifest
-        uses: ad-m/github-push-action@0.6.0
+        uses: ad-m/github-push-action@v0.6.0
