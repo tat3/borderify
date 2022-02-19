@@ -2,6 +2,8 @@ name: Create release draft
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
 
@@ -50,3 +52,15 @@ jobs:
           files: |
             borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
 
+      - name: Update update manifest
+        run: node release.js ${{ env.tag }}
+
+      - name: Setup github credentials
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add update_manifest.json
+          git commit -m "workflow: update update manifest"
+
+      - name: Register update manifest
+        uses: ad-m/github-push-action@0.6.0
