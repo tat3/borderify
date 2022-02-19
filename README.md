@@ -4,8 +4,10 @@ https://developer.mozilla.org/ja/docs/Mozilla/Add-ons/WebExtensions/Your_first_W
 
 ## how to release
 
+Assume the tag for release is `v0.1.0`, run
+
 ```bash
-$ bash release.sh
+$ bash release.sh v0.1.0
 ```
 
-Then release `./borderify.zip`
+Then publish `borderify_v0.1.0.zip`.
