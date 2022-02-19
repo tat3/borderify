@@ -1,4 +1,4 @@
-name: Create release
+name: Create release draft
 
 on:
   push:
@@ -32,5 +32,3 @@ jobs:
           draft: true
           files: |
             borderify_${{ env.tag }}.zip
-
-       
