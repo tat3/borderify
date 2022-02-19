@@ -12,14 +12,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Display payload
+      - name: show payload
         run: cat $GITHUB_EVENT_PATH
       
       - name: Set tag to env
         run: |
           ref=${{ github.ref }}
-          echo "tag=${ref##ref/tags/}" >> $GITHUB_ENV
-          echo ${{ env.tag }}
+          echo "tag=${ref##refs/tags/}" >> $GITHUB_ENV
+
+      - name: show tag
+        run: echo ${{ env.tag }}
 
       - name: Create release assets
         run: bash release.sh ${{ env.tag }}
