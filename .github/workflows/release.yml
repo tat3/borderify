@@ -50,3 +50,35 @@ jobs:
           files: |
             borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
 
+  update_manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Set tag to env
+        run: |
+          ref=${{ github.ref }}
+          echo "tag=${ref##refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Install nodejs 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Create commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          node release.js ${{ env.tag }}
+          git add .
+          git commit -m "update for release v${{ env.tag }}"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: update for verison v${{ env.tag }}
+          branch: action/release_v${{ env.tag }}
