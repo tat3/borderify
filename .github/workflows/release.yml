@@ -18,17 +18,35 @@ jobs:
       - name: Set tag to env
         run: |
           ref=${{ github.ref }}
-          echo "tag=${ref##refs/tags/}" >> $GITHUB_ENV
+          echo "tag=${ref##refs/tags/v}" >> $GITHUB_ENV
 
       - name: show tag
         run: echo ${{ env.tag }}
 
-      - name: Create release assets
-        run: bash release.sh ${{ env.tag }}
- 
+      - name: Install nodejs 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      - name: Create manifest.json
+        run: |
+          sudo apt install -y gettext-base
+          export tag=${{ env.tag }}
+          envsubst < manifest.json.template > borderify/manifest.json
+          cat borderify/manifest.json
+
+      - name: Sign addon and create addon xpi
+        run: |
+          cd borderify
+          web-ext sign --api-key=${{ secrets.API_KEY }} --api-secret=${{ secrets.API_SECRET }}  --id=`cat ../addon_id`
+
       - name: Create release draft
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: |
-            borderify_${{ env.tag }}.zip
+            borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
+
