@@ -46,7 +46,6 @@ jobs:
       - name: Create release draft
         uses: softprops/action-gh-release@v1
         with:
-          draft: true
           files: |
             borderify/web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
 
