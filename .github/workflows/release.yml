@@ -1,7 +1,9 @@
 name: Create release
 
 on:
-  push
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   package:
@@ -12,8 +14,20 @@ jobs:
 
       - name: Display payload
         run: cat $GITHUB_EVENT_PATH
+      
+      - name: Set tag to env
+        run: |
+          ref=${{ github.ref }}
+          echo "tag=${ref##ref/tags/}" >> $GITHUB_ENV
 
+      - name: Create release assets
+        run: bash release.sh ${{ env.tag }}
+ 
       - name: Create release draft
         uses: softprops/action-gh-release@v1
         with:
           draft: true
+          files: |
+            borderify_${{ env.tag }}.zip
+
+       

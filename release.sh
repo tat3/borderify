@@ -1,6 +1,6 @@
-version=${1:?"Error: version is not specified"}
-cd borderify
-zip -r -FS ../borderify.zip ./* -x '*.zip' -x '*.git*'
-cd ..
+tag=${1:?"Error: tag is not specified"}
+echo "tag: $tag"
 
-echo $version
+cd borderify
+zip -r -FS ../borderify_$tag.zip ./* -x '*.zip' -x '*.git*'
+cd ..
