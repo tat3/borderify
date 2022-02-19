@@ -3,12 +3,8 @@
     "{b94fcb7b-11ef-4aa0-a1fb-a12dff5745f3}": {
       "updates": [
         {
-          "version": "0.1.10",
-          "update_link": "https://github.com/tat3/borderify/releases/download/v0.1.10/my_borderify-0.1.10-an+fx.xpi"
-        },
-        {
-          "version": "0.1.11",
-          "update_link": "https://github.com/tat3/borderify/releases/download/v0.1.11/my_borderify-0.1.11-an+fx.xpi"
+          "version": "0.1.12",
+          "update_link": "https://github.com/tat3/borderify/releases/download/v0.1.12/my_borderify-0.1.12-an+fx.xpi"
         }
       ]
     }
