@@ -23,12 +23,26 @@ jobs:
       - name: show tag
         run: echo ${{ env.tag }}
 
-      - name: Create release assets
-        run: bash release.sh ${{ env.tag }}
- 
+      - name: Install nodejs 16
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      - name: Create manifest.json
+        run: |
+          apt install -y gettext-base
+          envsubst < manifest.json.template > borderify/manifest.json
+
+      - name: Sign and create addon xpi
+        run: web-ext sign --api-key=${{ env.API_KEY }} --api-secret=${{ env.API_SECRET }}  --id=`cat addon_id`
+
       - name: Create release draft
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: |
-            borderify_${{ env.tag }}.zip
+            web-ext-artifacts/my_borderify-${{ env.tag }}-an+fx.xpi
+
